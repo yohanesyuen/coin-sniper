@@ -1,0 +1,23 @@
+version: '3'
+services:
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+  backend:
+    build:
+      context: ./packages/backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+      - redis
+  frontend:
+    build:
+      context: ./packages/frontend
+    ports:
+      - "3000:3000"
